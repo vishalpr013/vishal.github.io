@@ -44,63 +44,67 @@ export default function Hero() {
         variants={stagger}
         initial="hidden"
         animate="show"
-        className="relative z-10 section-container flex-grow flex flex-col justify-center py-16 sm:py-20"
+        className="relative z-10 section-container flex-grow flex flex-col justify-center py-8 sm:py-12"
       >
-        {/* Massive serif headline */}
-        <motion.h1
-          variants={fadeUp}
-          className="font-serif font-bold text-charcoal dark:text-cream-100 leading-[1.05] tracking-tight mb-8"
-          style={{ fontSize: 'clamp(3rem, 8vw, 7.5rem)' }}
-        >
-          Building
-          <br />
-          <span className="italic text-copper">intelligent</span>
-          <br />
-          systems
-          <br />
-          <span className="font-serif italic text-charcoal/30 dark:text-cream-200/30" style={{ fontSize: '0.85em' }}>
-            that learn.
-          </span>
-        </motion.h1>
-
-        {/* Bio and metadata row */}
-        <motion.div
-          variants={fadeUp}
-          className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-end mt-4"
-        >
-          {/* Left: Bio */}
-          <p className="font-serif italic text-lg sm:text-xl text-charcoal/60 dark:text-cream-200/50 leading-relaxed max-w-lg">
-            {personalInfo.tagline} From research labs to production pipelines — AI that reasons, decides, and ships work.
-          </p>
-
-          {/* Right: Metadata tags */}
-          <div className="flex flex-col gap-3 lg:items-end">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs tracking-wider text-copper bg-copper/10 px-2.5 py-1 rounded-sm">
-                [ROLE]
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
+          {/* Left column — Headline */}
+          <div className="lg:col-span-7">
+            <motion.h1
+              variants={fadeUp}
+              className="font-serif font-bold text-charcoal dark:text-cream-100 leading-[1.05] tracking-tight"
+              style={{ fontSize: 'clamp(3rem, 6.5vw, 6.2rem)' }}
+            >
+              Building
+              <br />
+              <span className="italic text-copper">intelligent</span>
+              <br />
+              systems
+              <br />
+              <span className="font-serif italic text-charcoal/30 dark:text-cream-200/30" style={{ fontSize: '0.85em' }}>
+                that learn.
               </span>
-              <span className="font-mono text-sm text-charcoal/70 dark:text-cream-200/70">
-                {personalInfo.title}
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs tracking-wider text-copper bg-copper/10 px-2.5 py-1 rounded-sm">
-                [EDU]
-              </span>
-              <span className="font-mono text-sm text-charcoal/70 dark:text-cream-200/70">
-                B.E AI & ML · LDCE · 8.5 CGPA
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs tracking-wider text-copper bg-copper/10 px-2.5 py-1 rounded-sm">
-                [STATUS]
-              </span>
-              <span className="font-mono text-sm text-charcoal/70 dark:text-cream-200/70">
-                Open to opportunities
-              </span>
-            </div>
+            </motion.h1>
           </div>
-        </motion.div>
+
+          {/* Right column — Bio and metadata */}
+          <motion.div
+            variants={fadeUp}
+            className="lg:col-span-5 flex flex-col gap-8 lg:pl-10"
+          >
+            {/* Bio */}
+            <p className="font-serif italic text-lg sm:text-xl text-charcoal/60 dark:text-cream-200/50 leading-relaxed">
+              {personalInfo.tagline} From research labs to production pipelines — AI that reasons, decides, and ships work.
+            </p>
+
+            {/* Metadata tags */}
+            <div className="flex flex-col gap-3.5">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs tracking-wider text-copper bg-copper/10 px-2.5 py-1 rounded-sm">
+                  [ROLE]
+                </span>
+                <span className="font-mono text-sm text-charcoal/70 dark:text-cream-200/70">
+                  {personalInfo.title}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs tracking-wider text-copper bg-copper/10 px-2.5 py-1 rounded-sm">
+                  [EDU]
+                </span>
+                <span className="font-mono text-sm text-charcoal/70 dark:text-cream-200/70">
+                  B.E AI & ML · LDCE · 8.5 CGPA
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs tracking-wider text-copper bg-copper/10 px-2.5 py-1 rounded-sm">
+                  [STATUS]
+                </span>
+                <span className="font-mono text-sm text-charcoal/70 dark:text-cream-200/70">
+                  Open to opportunities
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </motion.div>
 
       {/* Bottom bar with scroll and status */}
