@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiEnvelope, HiPhone, HiArrowRight, HiCheckCircle } from 'react-icons/hi2'
+import { HiEnvelope, HiArrowRight, HiCheckCircle } from 'react-icons/hi2'
 import { SiGithub } from 'react-icons/si'
-import { FaLinkedin, FaPaperPlane } from 'react-icons/fa'
+import { FaPaperPlane, FaLinkedin } from 'react-icons/fa'
 import { personalInfo, googleFormConfig } from '../data/portfolio'
 
 const containerVariants = {
@@ -12,7 +12,7 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 }
 
 export default function Contact() {
@@ -49,7 +49,6 @@ export default function Contact() {
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
-    // Clear error as user types
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }))
     }
@@ -70,7 +69,6 @@ export default function Contact() {
     const isMockMode = !googleFormConfig.submitUrl || googleFormConfig.submitUrl.includes('YOUR_FORM_ID_HERE')
 
     if (isMockMode) {
-      // Simulate form submission
       setTimeout(() => {
         setStatus({ submitting: false, submitted: true, error: null })
         setFormData({ name: '', email: '', subject: '', message: '' })
@@ -107,34 +105,23 @@ export default function Contact() {
       label: 'GitHub',
       value: 'vishalpr013',
       href: personalInfo.github,
-      gradient: 'from-violet-600/10 to-purple-600/5 hover:border-violet-500/30 dark:hover:border-violet-500/20',
-      iconColor: 'text-violet-500',
     },
     {
       icon: FaLinkedin,
       label: 'LinkedIn',
       value: 'Connect on LinkedIn',
       href: personalInfo.linkedin,
-      gradient: 'from-blue-600/10 to-cyan-600/5 hover:border-blue-500/30 dark:hover:border-blue-500/20',
-      iconColor: 'text-blue-500',
     },
     {
       icon: HiEnvelope,
       label: 'Email',
       value: personalInfo.email,
       href: `mailto:${personalInfo.email}`,
-      gradient: 'from-cyan-600/10 to-teal-600/5 hover:border-cyan-500/30 dark:hover:border-cyan-500/20',
-      iconColor: 'text-cyan-500',
     },
-    
   ]
 
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-light dark:bg-grid-dark opacity-30" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-cyan-500/5 via-violet-500/5 to-transparent rounded-full blur-[100px]" />
-
+    <section id="contact" className="section-cream section-padding relative overflow-hidden">
       <div className="section-container relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
           {/* Left Column: Heading + Intro + Social Links */}
@@ -146,12 +133,12 @@ export default function Contact() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5 }}
               >
-                <p className="section-label mb-3">Get in Touch</p>
-                <h2 className="section-heading text-left text-4xl sm:text-5xl mb-6">
-                  Let&apos;s <span className="gradient-text">Connect</span>
+                <span className="section-label mb-6 block">Get in Touch</span>
+                <h2 className="section-heading text-charcoal dark:text-cream-100 mb-6">
+                  Let's <span className="italic text-copper">connect.</span>
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 font-light leading-relaxed mb-8 max-w-md">
-                  I&apos;m always excited to discuss new opportunities, AI research collaborations, or interesting projects. Feel free to reach out through any of the channels.
+                <p className="section-subtext text-charcoal/60 dark:text-cream-200/50 mb-10 max-w-md">
+                  I'm always excited to discuss new opportunities, AI research collaborations, or interesting projects. Feel free to reach out.
                 </p>
               </motion.div>
 
@@ -170,24 +157,24 @@ export default function Contact() {
                       key={idx}
                       variants={itemVariants}
                       href={item.href}
-                      target={item.label !== 'Phone' && item.label !== 'Email' ? '_blank' : undefined}
-                      rel={item.label !== 'Phone' && item.label !== 'Email' ? 'noopener noreferrer' : undefined}
-                      className={`glass-card flex items-center justify-between p-4 bg-white/70 dark:bg-white/[0.02] border border-slate-200/80 dark:border-white/[0.06] rounded-2xl group transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/[0.02] dark:hover:shadow-cyan-500/[0.05] hover:bg-gradient-to-r ${item.gradient}`}
+                      target={item.label !== 'Email' ? '_blank' : undefined}
+                      rel={item.label !== 'Email' ? 'noopener noreferrer' : undefined}
+                      className="border border-border-cream dark:border-border-light p-4 bg-cream-50/50 dark:bg-charcoal-50/20 hover:bg-cream-100/50 dark:hover:bg-charcoal-50 hover:border-copper/30 dark:hover:border-copper/30 rounded-sm flex items-center justify-between group transition-all duration-300"
                     >
                       <div className="flex items-center gap-4">
-                        <div className={`w-11 h-11 rounded-xl bg-slate-100 dark:bg-white/[0.04] flex items-center justify-center border border-slate-200/40 dark:border-white/[0.06] group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-white/10 transition-transform duration-300`}>
-                          <Icon className={`w-5 h-5 ${item.iconColor} transition-colors`} />
+                        <div className="w-10 h-10 rounded-sm bg-copper/10 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                          <Icon className="w-5 h-5 text-copper" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-semibold text-slate-900 dark:text-white mb-0.5">
+                          <p className="text-sm font-serif font-semibold text-charcoal dark:text-cream mb-0.5">
                             {item.label}
                           </p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[200px] sm:max-w-xs font-mono">
+                          <p className="text-xs text-charcoal/50 dark:text-cream-200/40 truncate max-w-[200px] sm:max-w-xs font-mono">
                             {item.value}
                           </p>
                         </div>
                       </div>
-                      <HiArrowRight className="w-5 h-5 text-slate-400 dark:text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white transition-all duration-300 group-hover:translate-x-1 flex-shrink-0" />
+                      <HiArrowRight className="w-4 h-4 text-charcoal/30 dark:text-cream-200/30 group-hover:text-copper group-hover:translate-x-1 transition-all duration-300 flex-shrink-0" />
                     </motion.a>
                   )
                 })}
@@ -203,11 +190,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-7"
           >
-            <div className="relative glass-card bg-white/70 dark:bg-white/[0.02] border border-slate-200/80 dark:border-white/[0.06] rounded-3xl p-6 sm:p-8 shadow-xl dark:shadow-2xl overflow-hidden">
-              {/* Dynamic glow in background */}
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-cyan-500/20 to-violet-500/20 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-gradient-to-br from-violet-500/10 to-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
+            <div className="relative border border-border-cream dark:border-border-light bg-cream-50 dark:bg-charcoal-50/30 rounded-sm p-6 sm:p-8">
               <AnimatePresence mode="wait">
                 {!status.submitted ? (
                   <motion.form
@@ -222,7 +205,7 @@ export default function Contact() {
                     <div className="grid gap-6 sm:grid-cols-2">
                       {/* Name */}
                       <div>
-                        <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                        <label htmlFor="name" className="block text-xs font-mono uppercase tracking-wider text-charcoal/50 dark:text-cream-200/50 mb-2">
                           Name
                         </label>
                         <input
@@ -232,12 +215,12 @@ export default function Contact() {
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="Your name"
-                          className={`w-full px-4 py-3 rounded-xl bg-slate-100/55 dark:bg-white/[0.03] border ${
-                            errors.name ? 'border-rose-500 focus:ring-rose-500/20' : 'border-slate-200/80 dark:border-white/[0.06] focus:border-cyan-500 focus:ring-cyan-500/10'
-                          } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-4 transition-all duration-300 font-sans`}
+                          className={`w-full px-4 py-3 rounded-sm bg-transparent border ${
+                            errors.name ? 'border-rose-600 focus:border-rose-600' : 'border-border-cream dark:border-border-light focus:border-copper'
+                          } text-charcoal dark:text-cream placeholder-charcoal/30 dark:placeholder-cream-200/30 focus:outline-none transition-all duration-300 font-sans`}
                         />
                         {errors.name && (
-                          <span className="text-xs text-rose-500 mt-1.5 block font-medium">
+                          <span className="text-xs text-rose-600 mt-1.5 block font-medium">
                             {errors.name}
                           </span>
                         )}
@@ -245,7 +228,7 @@ export default function Contact() {
 
                       {/* Email */}
                       <div>
-                        <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                        <label htmlFor="email" className="block text-xs font-mono uppercase tracking-wider text-charcoal/50 dark:text-cream-200/50 mb-2">
                           Email
                         </label>
                         <input
@@ -255,12 +238,12 @@ export default function Contact() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="you@example.com"
-                          className={`w-full px-4 py-3 rounded-xl bg-slate-100/55 dark:bg-white/[0.03] border ${
-                            errors.email ? 'border-rose-500 focus:ring-rose-500/20' : 'border-slate-200/80 dark:border-white/[0.06] focus:border-cyan-500 focus:ring-cyan-500/10'
-                          } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-4 transition-all duration-300 font-sans`}
+                          className={`w-full px-4 py-3 rounded-sm bg-transparent border ${
+                            errors.email ? 'border-rose-600 focus:border-rose-600' : 'border-border-cream dark:border-border-light focus:border-copper'
+                          } text-charcoal dark:text-cream placeholder-charcoal/30 dark:placeholder-cream-200/30 focus:outline-none transition-all duration-300 font-sans`}
                         />
                         {errors.email && (
-                          <span className="text-xs text-rose-500 mt-1.5 block font-medium">
+                          <span className="text-xs text-rose-600 mt-1.5 block font-medium">
                             {errors.email}
                           </span>
                         )}
@@ -269,7 +252,7 @@ export default function Contact() {
 
                     {/* Subject */}
                     <div>
-                      <label htmlFor="subject" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                      <label htmlFor="subject" className="block text-xs font-mono uppercase tracking-wider text-charcoal/50 dark:text-cream-200/50 mb-2">
                         Subject
                       </label>
                       <input
@@ -279,12 +262,12 @@ export default function Contact() {
                         value={formData.subject}
                         onChange={handleChange}
                         placeholder="What's this about?"
-                        className={`w-full px-4 py-3 rounded-xl bg-slate-100/55 dark:bg-white/[0.03] border ${
-                          errors.subject ? 'border-rose-500 focus:ring-rose-500/20' : 'border-slate-200/80 dark:border-white/[0.06] focus:border-cyan-500 focus:ring-cyan-500/10'
-                        } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-4 transition-all duration-300 font-sans`}
+                        className={`w-full px-4 py-3 rounded-sm bg-transparent border ${
+                          errors.subject ? 'border-rose-600 focus:border-rose-600' : 'border-border-cream dark:border-border-light focus:border-copper'
+                        } text-charcoal dark:text-cream placeholder-charcoal/30 dark:placeholder-cream-200/30 focus:outline-none transition-all duration-300 font-sans`}
                       />
                       {errors.subject && (
-                        <span className="text-xs text-rose-500 mt-1.5 block font-medium">
+                        <span className="text-xs text-rose-600 mt-1.5 block font-medium">
                           {errors.subject}
                         </span>
                       )}
@@ -292,7 +275,7 @@ export default function Contact() {
 
                     {/* Message */}
                     <div>
-                      <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                      <label htmlFor="message" className="block text-xs font-mono uppercase tracking-wider text-charcoal/50 dark:text-cream-200/50 mb-2">
                         Message
                       </label>
                       <textarea
@@ -302,19 +285,19 @@ export default function Contact() {
                         value={formData.message}
                         onChange={handleChange}
                         placeholder="Tell me about your project or idea..."
-                        className={`w-full px-4 py-3 rounded-xl bg-slate-100/55 dark:bg-white/[0.03] border ${
-                          errors.message ? 'border-rose-500 focus:ring-rose-500/20' : 'border-slate-200/80 dark:border-white/[0.06] focus:border-cyan-500 focus:ring-cyan-500/10'
-                        } text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-4 transition-all duration-300 font-sans resize-none`}
+                        className={`w-full px-4 py-3 rounded-sm bg-transparent border ${
+                          errors.message ? 'border-rose-600 focus:border-rose-600' : 'border-border-cream dark:border-border-light focus:border-copper'
+                        } text-charcoal dark:text-cream placeholder-charcoal/30 dark:placeholder-cream-200/30 focus:outline-none transition-all duration-300 font-sans resize-none`}
                       />
                       {errors.message && (
-                        <span className="text-xs text-rose-500 mt-1.5 block font-medium">
+                        <span className="text-xs text-rose-600 mt-1.5 block font-medium">
                           {errors.message}
                         </span>
                       )}
                     </div>
 
                     {status.error && (
-                      <div className="p-4 bg-rose-500/10 border border-rose-500/25 rounded-xl text-sm text-rose-500 font-medium font-sans">
+                      <div className="p-4 bg-rose-500/10 border border-rose-600/25 rounded-sm text-sm text-rose-600 font-medium">
                         {status.error}
                       </div>
                     )}
@@ -323,7 +306,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={status.submitting}
-                      className="group relative w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-400 hover:to-violet-400 shadow-lg shadow-cyan-500/25 dark:shadow-cyan-500/15 hover:shadow-xl hover:shadow-cyan-500/35 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+                      className="group relative w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-sm text-sm font-mono uppercase tracking-wider text-cream dark:text-charcoal bg-charcoal dark:bg-cream hover:bg-copper dark:hover:bg-copper dark:hover:text-cream transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
                     >
                       {status.submitting ? (
                         <>
@@ -331,7 +314,7 @@ export default function Contact() {
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                           </svg>
-                          Sending Message...
+                          Sending...
                         </>
                       ) : (
                         <>
@@ -355,22 +338,22 @@ export default function Contact() {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
-                      className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center mb-6 shadow-lg shadow-emerald-500/10"
+                      className="w-12 h-12 rounded-sm bg-copper/10 flex items-center justify-center mb-6"
                     >
-                      <HiCheckCircle className="w-10 h-10 text-emerald-500" />
+                      <HiCheckCircle className="w-6 h-6 text-copper" />
                     </motion.div>
                     
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 font-heading">
+                    <h3 className="text-xl font-serif font-bold text-charcoal dark:text-cream mb-3">
                       Message Sent!
                     </h3>
                     
-                    <p className="text-slate-600 dark:text-slate-400 font-light leading-relaxed max-w-md mb-8">
-                      Thank you for reaching out. Your message has been successfully transmitted. I will review it and get back to you as soon as possible.
+                    <p className="text-charcoal/60 dark:text-cream-200/60 text-sm leading-relaxed max-w-md mb-8">
+                      Thank you for reaching out. Your message has been successfully transmitted. I will get back to you as soon as possible.
                     </p>
 
                     <button
                       onClick={handleReset}
-                      className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] hover:border-cyan-400/40 dark:hover:border-cyan-400/20 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                      className="inline-flex items-center gap-2.5 px-6 py-3 rounded-sm text-xs font-mono uppercase tracking-wider text-charcoal dark:text-cream border border-border-cream dark:border-border-light hover:border-copper transition-all duration-300 cursor-pointer"
                     >
                       Send Another Message
                     </button>

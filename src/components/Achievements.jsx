@@ -1,29 +1,27 @@
 import { motion } from 'framer-motion'
-import { HiTrophy, HiBolt, HiShieldCheck } from 'react-icons/hi2'
+import { HiMiniTrophy, HiMiniBolt, HiMiniShieldCheck } from 'react-icons/hi2'
 import { achievements, certifications } from '../data/portfolio'
 
 const containerVariants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
+  show: { transition: { staggerChildren: 0.15 } },
 }
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 }
 
 const iconMap = {
-  trophy: HiTrophy,
-  target: HiBolt,
+  trophy: HiMiniTrophy,
+  target: HiMiniBolt,
 }
 
 export default function Achievements() {
   return (
-    <section id="achievements" className="section-padding relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-grid-light dark:bg-grid-dark opacity-30" />
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-amber-500/8 rounded-full blur-[130px]" />
-      <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-cyan-500/8 rounded-full blur-[100px]" />
+    <section id="achievements" className="section-dark section-padding relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-copper/[0.01] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="section-container relative z-10">
         {/* Header */}
@@ -32,44 +30,48 @@ export default function Achievements() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <p className="section-label mb-4">Recognition</p>
-          <h2 className="section-heading">
-            Achievements <span className="gradient-text">&amp; Certifications</span>
+          <span className="section-label mb-6 block">Recognition</span>
+          <h2 className="section-heading text-charcoal dark:text-cream-100 max-w-3xl">
+            Awards &amp;{' '}
+            <span className="italic text-copper">credentials.</span>
           </h2>
-          <p className="section-subtext mt-4 max-w-2xl mx-auto">
-            Awards, recognitions, and professional credentials that validate the journey.
+          <p className="section-subtext mt-6 text-charcoal/50 dark:text-cream-200/50 max-w-2xl">
+            Honors, hackathon wins, and professional validations.
           </p>
         </motion.div>
 
-        {/* ─── Achievements Grid ─── */}
+        {/* Horizontal rule */}
+        <div className="rule mb-12" />
+
+        {/* Achievements Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto"
+          className="grid gap-6 md:grid-cols-2 max-w-4xl mb-16"
         >
           {achievements.map((item, idx) => {
-            const Icon = iconMap[item.icon] || HiTrophy
+            const Icon = iconMap[item.icon] || HiMiniTrophy
             return (
               <motion.div
                 key={idx}
-                variants={itemVariants}
-                className="glass-card glass-card-hover p-6 flex items-start gap-5 group"
+                variants={cardVariants}
+                className="card-sharp p-6 flex items-start gap-5 group hover:border-copper/20 transition-colors duration-300"
               >
-                {/* Icon circle */}
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-cyan-500 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:shadow-amber-500/30 transition-shadow">
-                  <Icon className="w-6 h-6 text-white" />
+                {/* Icon wrapper */}
+                <div className="flex-shrink-0 w-10 h-10 rounded-sm bg-copper/10 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-copper" />
                 </div>
 
                 {/* Content */}
                 <div className="min-w-0">
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-1.5 leading-snug">
+                  <h3 className="font-serif text-lg font-semibold text-charcoal dark:text-cream-100 mb-2 leading-snug">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                  <p className="text-sm text-charcoal/50 dark:text-cream-200/50 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -78,40 +80,42 @@ export default function Achievements() {
           })}
         </motion.div>
 
-        {/* ─── Certifications ─── */}
+        {/* Certifications Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="mt-16 max-w-4xl mx-auto"
+          className="max-w-4xl"
         >
-          <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
-            <HiShieldCheck className="w-6 h-6 text-cyan-500" />
-            Certifications
-          </h3>
+          <div className="flex items-center gap-3 mb-8">
+            <span className="w-2 h-2 rounded-full bg-copper" />
+            <h3 className="font-mono text-sm tracking-wider uppercase text-charcoal/50 dark:text-cream-200/50">
+              Certifications
+            </h3>
+          </div>
 
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-wrap gap-4"
+            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
             {certifications.map((cert, idx) => (
               <motion.div
                 key={idx}
-                variants={itemVariants}
-                className="glass-card px-5 py-3 flex items-center gap-3 group hover:border-cyan-500/30 dark:hover:border-cyan-500/30 transition-colors"
+                variants={cardVariants}
+                className="card-sharp p-5 flex items-start gap-4 group hover:border-copper/20 transition-colors duration-300"
               >
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center flex-shrink-0">
-                  <HiShieldCheck className="w-4 h-4 text-white" />
+                <div className="w-8 h-8 rounded-sm bg-copper/10 flex items-center justify-center flex-shrink-0">
+                  <HiMiniShieldCheck className="w-4 h-4 text-copper" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-medium text-sm text-slate-900 dark:text-white leading-tight">
+                  <h4 className="font-serif text-sm font-semibold text-charcoal dark:text-cream-100 leading-snug">
                     {cert.name}
-                  </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  </h4>
+                  <p className="font-mono text-xs text-charcoal/40 dark:text-cream-200/40 mt-1 uppercase tracking-wider">
                     {cert.issuer}
                   </p>
                 </div>

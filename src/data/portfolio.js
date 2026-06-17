@@ -10,7 +10,7 @@ export const personalInfo = {
   subtitles: ['AI & ML Engineer', 'Research Intern @ IIT Gandhinagar', 'RAG & LLM Specialist'],
   tagline: 'Turning research papers into production pipelines.',
   email: 'vishalprajapati9427@gmail.com',
-  location: 'Gandhinagar, India',
+  location: 'Ahmedabad, India',
   github: 'https://github.com/vishalpr013',
   linkedin: 'https://www.linkedin.com/in/vishal-prajapati-56a233290/',
   resumeUrl: '/VISHAL_PRAJAPATI_RESUME-2.pdf',

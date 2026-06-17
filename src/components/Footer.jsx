@@ -45,19 +45,16 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="border-t border-slate-200 dark:border-white/[0.06] relative">
-        {/* Subtle gradient line at top */}
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
-
-        <div className="section-container py-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+      <footer className="border-t border-border-cream dark:border-border-light bg-cream-100 dark:bg-charcoal relative transition-colors duration-300">
+        <div className="section-container py-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
             {/* Copyright */}
-            <p className="text-sm text-slate-500 dark:text-slate-400 text-center sm:text-left">
+            <p className="font-mono text-[10px] tracking-widest text-charcoal/50 dark:text-cream-200/40 uppercase text-center sm:text-left">
               © {new Date().getFullYear()} {personalInfo.name} {personalInfo.lastName}. All rights reserved.
             </p>
 
             {/* Social icons */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               {socialLinks.map((link, idx) => {
                 const Icon = link.icon
                 return (
@@ -68,9 +65,9 @@ export default function Footer() {
                     {...(link.external
                       ? { target: '_blank', rel: 'noopener noreferrer' }
                       : {})}
-                    className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all duration-300"
+                    className="w-8 h-8 rounded-sm flex items-center justify-center text-charcoal/40 dark:text-cream-200/40 hover:text-copper dark:hover:text-copper-light hover:bg-cream-200 dark:hover:bg-charcoal-50 transition-colors duration-300"
                   >
-                    <Icon className="w-[18px] h-[18px]" />
+                    <Icon className="w-4 h-4" />
                   </a>
                 )
               })}
@@ -83,15 +80,15 @@ export default function Footer() {
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
-            initial={{ opacity: 0, scale: 0.8, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 10 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
             onClick={scrollToTop}
-            className="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-gradient-to-br from-cyan-500 to-violet-600 text-white shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+            className="fixed bottom-8 right-8 z-50 w-10 h-10 rounded-sm bg-charcoal dark:bg-cream text-cream dark:text-charcoal hover:bg-copper dark:hover:bg-copper dark:hover:text-cream flex items-center justify-center transition-all duration-300 cursor-pointer border border-border-light dark:border-border-cream shadow-lg"
             aria-label="Scroll to top"
           >
-            <HiArrowUp className="w-5 h-5" />
+            <HiArrowUp className="w-4 h-4" />
           </motion.button>
         )}
       </AnimatePresence>

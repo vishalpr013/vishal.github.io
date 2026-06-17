@@ -8,97 +8,125 @@
   }
 
   ::selection {
-    @apply bg-cyan-500/30;
+    background: rgba(200, 121, 65, 0.25);
   }
 
   .dark ::selection {
-    @apply text-cyan-100;
+    color: #f5f0eb;
   }
 }
 
 @layer components {
-  .gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-500;
+  /* ─── Accent text — copper italic serif ─── */
+  .accent-text {
+    @apply text-copper font-serif italic;
   }
 
-  .gradient-text-amber {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-cyan-400;
+  /* ─── Section label — monospace with dash prefix ─── */
+  .section-label {
+    @apply inline-flex items-center gap-3 uppercase tracking-[0.2em] text-xs font-mono font-medium text-copper;
   }
 
-  .glass-card {
-    @apply bg-white/70 dark:bg-white/[0.04] backdrop-blur-xl border border-slate-200/80 dark:border-white/[0.08] rounded-2xl;
+  .section-label::before {
+    content: '';
+    @apply block w-8 h-px bg-copper;
   }
 
-  .glass-card-hover {
-    @apply hover:border-cyan-400/30 dark:hover:border-cyan-400/20 hover:shadow-lg hover:shadow-cyan-500/5 dark:hover:shadow-cyan-500/10 transition-all duration-300;
+  /* ─── Section heading — massive serif ─── */
+  .section-heading {
+    @apply text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold leading-[1.1] tracking-tight;
   }
 
-  .glow-cyan {
-    box-shadow: 0 0 25px rgba(6, 182, 212, 0.12), 0 0 80px rgba(6, 182, 212, 0.04);
+  /* ─── Section subtext ─── */
+  .section-subtext {
+    @apply text-lg sm:text-xl font-serif italic font-light leading-relaxed;
   }
 
-  .glow-violet {
-    box-shadow: 0 0 25px rgba(139, 92, 246, 0.12), 0 0 80px rgba(139, 92, 246, 0.04);
-  }
-
-  .glow-amber {
-    box-shadow: 0 0 25px rgba(245, 158, 11, 0.12), 0 0 80px rgba(245, 158, 11, 0.04);
-  }
-
+  /* ─── Section containers ─── */
   .section-padding {
-    @apply pt-12 sm:pt-16 pb-24 sm:pb-32;
+    @apply py-24 sm:py-32 lg:py-40;
   }
 
   .section-container {
-    @apply max-w-6xl mx-auto px-6 sm:px-12 lg:px-16;
+    @apply max-w-7xl mx-auto px-6 sm:px-12 lg:px-20;
   }
 
-  .section-heading {
-    @apply text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight;
+  /* ─── Light section (cream) ─── */
+  .section-cream {
+    @apply bg-cream-100 text-charcoal;
   }
 
-  .section-label {
-    @apply uppercase tracking-[0.2em] text-sm font-bold text-cyan-500 dark:text-cyan-400;
+  .dark .section-cream {
+    @apply bg-charcoal text-cream-100;
   }
 
-  .section-subtext {
-    @apply text-lg text-slate-500 dark:text-slate-400 font-light;
+  /* ─── Dark section ─── */
+  .section-dark {
+    @apply bg-cream-200 text-charcoal;
   }
 
-  .skill-tag {
-    @apply flex items-center gap-2 py-2 px-3.5 rounded-xl border text-sm font-medium transition-all duration-300 cursor-default;
-    @apply bg-white/80 dark:bg-white/[0.04] border-slate-200 dark:border-white/[0.08];
-    @apply hover:bg-white dark:hover:bg-white/[0.08] hover:border-cyan-400/40 dark:hover:border-cyan-400/20 hover:shadow-sm;
+  .dark .section-dark {
+    @apply bg-charcoal-100 text-cream-100;
   }
 
+  /* ─── Sharp card ─── */
+  .card-sharp {
+    @apply border border-border-cream bg-cream-50 rounded-sm;
+  }
+
+  .dark .card-sharp {
+    @apply border border-border-light bg-charcoal-50/50 rounded-sm;
+  }
+
+  /* ─── Monospace tag ─── */
+  .mono-tag {
+    @apply inline-flex items-center px-3 py-1 text-xs font-mono uppercase tracking-wider border rounded-sm transition-colors duration-200;
+    @apply border-border-cream text-charcoal/70;
+  }
+
+  .mono-tag:hover {
+    @apply border-copper/40 text-copper;
+  }
+
+  .dark .mono-tag {
+    @apply border-border-light text-cream-200/70;
+  }
+
+  .dark .mono-tag:hover {
+    @apply border-copper/40 text-copper-light;
+  }
+
+  /* Light theme tags */
+  .mono-tag-light {
+    @apply inline-flex items-center px-3 py-1 text-xs font-mono uppercase tracking-wider border rounded-sm transition-colors duration-200;
+    @apply border-border-cream text-charcoal/70;
+  }
+
+  .mono-tag-light:hover {
+    @apply border-copper/40 text-copper;
+  }
+
+  .dark .mono-tag-light {
+    @apply border-border-light text-cream-200/70;
+  }
+
+  .dark .mono-tag-light:hover {
+    @apply border-copper/40 text-copper-light;
+  }
+
+  /* ─── Nav link ─── */
   .nav-link {
-    @apply text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors relative;
+    @apply text-sm font-mono text-charcoal/50 hover:text-charcoal transition-colors duration-300 tracking-wide;
   }
 
-  .nav-link-underline {
-    @apply absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-cyan-400 to-violet-500 transition-all duration-300;
-  }
-
-  .nav-link:hover .nav-link-underline {
-    @apply w-full;
+  .dark .nav-link {
+    @apply text-cream-200/50 hover:text-cream-100;
   }
 }
 
-@layer utilities {
-  .bg-grid-dark {
-    background-image: radial-gradient(circle, rgba(6, 182, 212, 0.07) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
-
-  .bg-grid-light {
-    background-image: radial-gradient(circle, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
-}
-
-/* Custom scrollbar */
+/* ─── Custom scrollbar ─── */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -106,17 +134,29 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-cyan-500/20 rounded-full;
+  background: rgba(200, 121, 65, 0.2);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-cyan-500/40;
+  background: rgba(200, 121, 65, 0.4);
 }
 
-/* Animation delays */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
-.delay-700 { animation-delay: 700ms; }
+/* ─── Thin horizontal rule ─── */
+.rule {
+  @apply border-t;
+  border-color: rgba(224, 214, 202, 0.6);
+}
+
+.dark .rule {
+  border-color: rgba(45, 45, 45, 0.5);
+}
+
+.rule-cream {
+  @apply border-t;
+  border-color: rgba(224, 214, 202, 0.6);
+}
+
+.dark .rule-cream {
+  border-color: rgba(45, 45, 45, 0.5);
+}

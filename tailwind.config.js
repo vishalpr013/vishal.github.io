@@ -8,42 +8,54 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['"JetBrains Mono"', 'monospace'],
-        body: ['Inter', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       colors: {
-        dark: {
-          900: '#0a0f1a',
-          800: '#0f172a',
-          700: '#1e293b',
-          600: '#334155',
-          500: '#475569',
+        cream: {
+          DEFAULT: '#f5f0eb',
+          50: '#faf8f5',
+          100: '#f5f0eb',
+          200: '#ebe3d9',
+          300: '#ddd0c0',
+        },
+        charcoal: {
+          DEFAULT: '#0a0a0a',
+          50: '#1a1a1a',
+          100: '#141414',
+          200: '#111111',
+          300: '#0a0a0a',
+        },
+        copper: {
+          DEFAULT: '#c87941',
+          light: '#d4956a',
+          dark: '#a86530',
+        },
+        border: {
+          dark: '#1a1a1a',
+          light: '#2d2d2d',
+          cream: '#e0d6ca',
         },
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'float-slow': 'float 8s ease-in-out infinite',
-        'float-delay': 'float 6s ease-in-out 2s infinite',
-        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
-        'gradient': 'gradient 8s ease infinite',
-        'spin-slow': 'spin 12s linear infinite',
+        'fade-in': 'fadeIn 0.8s ease-out forwards',
+        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+        'slide-in-right': 'slideInRight 0.6s ease-out forwards',
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
-        pulseGlow: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.5' },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(24px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        gradient: {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
+        slideInRight: {
+          '0%': { opacity: '0', transform: 'translateX(-24px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
         },
-      },
-      backgroundSize: {
-        '200%': '200% 200%',
       },
     },
   },

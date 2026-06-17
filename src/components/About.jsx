@@ -1,155 +1,204 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { HiSparkles, HiBolt, HiServer, HiAcademicCap } from 'react-icons/hi2'
 import { about, personalInfo } from '../data/portfolio'
-
-const iconMap = {
-  sparkles: HiSparkles,
-  bolt: HiBolt,
-  server: HiServer,
-  academic: HiAcademicCap,
-}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 }
 
 export default function About() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = (e.clientX - rect.left - rect.width / 2) / 20
+    const y = (e.clientY - rect.top - rect.height / 2) / 20
+    setMousePos({ x, y })
+  }
+
+  const handleMouseLeave = () => {
+    setMousePos({ x: 0, y: 0 })
+  }
+
   return (
-    <section id="about" className="section-padding relative overflow-hidden">
-      {/* Subtle background blob */}
-      <div className="absolute top-1/4 -right-60 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-cyan-400/10 to-violet-500/5 dark:from-cyan-400/[0.06] dark:to-violet-500/[0.03] blur-3xl pointer-events-none" />
+    <section id="about" className="section-dark section-padding relative overflow-hidden">
+      {/* Subtle warm glow in background */}
+      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-copper/[0.03] blur-[150px] pointer-events-none" />
 
       <div className="section-container relative z-10">
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
-          {/* Left column — text content (3 cols) */}
+        {/* Section label */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <span className="section-label">About</span>
+        </motion.div>
+
+        {/* Large heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7 }}
+          className="section-heading text-charcoal dark:text-cream-100 mb-16 max-w-4xl"
+        >
+          A quiet{' '}
+          <span className="italic text-copper">obsession</span>
+          <br />
+          with AI that{' '}
+          <span className="italic text-copper">ships.</span>
+        </motion.h2>
+
+        {/* Two-column layout */}
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+          {/* Left — Interactive Decorative Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="relative w-full aspect-square max-w-lg mx-auto"
+          >
+            <div
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="w-full h-full border border-border-cream dark:border-border-light bg-[#0d0d0c] rounded-sm relative overflow-hidden flex items-center justify-center p-8 group cursor-pointer transition-colors duration-300"
+            >
+              {/* Background Stars (parallax in opposite direction) */}
+              <motion.div
+                animate={{ x: -mousePos.x * 0.4, y: -mousePos.y * 0.4 }}
+                transition={{ type: 'spring', stiffness: 150, damping: 25 }}
+                className="absolute inset-0 pointer-events-none"
+              >
+                <div className="absolute top-[15%] left-[20%] w-[3px] h-[3px] bg-cream-200/40 rounded-full" />
+                <div className="absolute top-[80%] left-[15%] w-[2px] h-[2px] bg-cream-200/30 rounded-full" />
+                <div className="absolute top-[75%] right-[25%] w-[4px] h-[4px] bg-cream-200/50 rounded-full" />
+                <div className="absolute top-[25%] right-[40%] w-[2px] h-[2px] bg-cream-200/30 rounded-full" />
+              </motion.div>
+
+              {/* Reticle / Crosshair */}
+              <svg className="absolute top-8 right-8 w-6 h-6 text-cream-200/20 group-hover:text-copper/40 transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                <circle cx="12" cy="12" r="8" />
+                <path d="M12 2v20M2 12h20" />
+              </svg>
+
+              {/* Left Top Label */}
+              <div className="absolute top-8 left-8 flex flex-col font-mono text-[9px] tracking-[0.2em] text-cream-200/30 uppercase">
+                <span>V · P</span>
+                <span className="mt-1">FIG. 01</span>
+              </div>
+
+              {/* Parallax Layer 1: Background Rings (tilted behind planet) */}
+              <motion.div
+                animate={{ x: mousePos.x * 0.3, y: mousePos.y * 0.3 }}
+                transition={{ type: 'spring', stiffness: 150, damping: 25 }}
+                className="absolute inset-0 pointer-events-none flex items-center justify-center"
+              >
+                <svg className="w-full h-full opacity-25 text-copper" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.4">
+                  {/* Ring 1 - Tilted Left */}
+                  <ellipse cx="53" cy="48" rx="36" ry="10" transform="rotate(-20 53 48)" />
+                  {/* Ring 2 - Tilted Right */}
+                  <ellipse cx="53" cy="48" rx="42" ry="14" transform="rotate(15 53 48)" />
+                </svg>
+              </motion.div>
+
+              {/* Parallax Layer 2: Main Planet Orb */}
+              <motion.div
+                animate={{
+                  x: mousePos.x,
+                  y: mousePos.y,
+                  scale: mousePos.x ? 1.02 : 1
+                }}
+                transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+                className="relative w-[52%] h-[52%] rounded-full bg-gradient-to-br from-[#d4956a] via-[#c87941] to-[#402008] shadow-2xl shadow-copper/20 group-hover:shadow-copper/30 transition-shadow duration-300 flex-shrink-0"
+              >
+                {/* Planet Light reflection Spot */}
+                <div className="absolute top-[18%] left-[18%] w-[32%] h-[32%] rounded-full bg-cream-100/30 blur-[2px]" />
+                
+                {/* Craters / Details */}
+                <div className="absolute top-[22%] right-[32%] w-[6%] h-[6%] rounded-full bg-charcoal/30 blur-[0.5px]" />
+                <div className="absolute top-[38%] right-[24%] w-[9%] h-[9%] rounded-full bg-charcoal/35 blur-[0.5px]" />
+                <div className="absolute bottom-[38%] left-[42%] w-[5%] h-[5%] rounded-full bg-charcoal/20 blur-[0.5px]" />
+                <div className="absolute bottom-[30%] left-[28%] w-[7%] h-[7%] rounded-full bg-charcoal/25 blur-[0.5px]" />
+                <div className="absolute bottom-[35%] right-[34%] w-[11%] h-[11%] rounded-full bg-charcoal/40 blur-[0.5px]" />
+              </motion.div>
+
+              {/* Parallax Layer 3: Foreground Ring (wraps in front of planet) */}
+              <motion.div
+                animate={{ x: mousePos.x * 1.3, y: mousePos.y * 1.3 }}
+                transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+                className="absolute inset-0 pointer-events-none flex items-center justify-center z-10"
+              >
+                <svg className="w-full h-full opacity-35 text-[#d4956a]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
+                  {/* Ring 3 - Deeply Tilted Ring in Foreground */}
+                  <ellipse cx="53" cy="48" rx="46" ry="11" transform="rotate(-35 53 48)" />
+                </svg>
+              </motion.div>
+
+              {/* Layer 4: Text Overlay (Priyank-style text layout) */}
+              <div className="absolute left-10 bottom-12 z-20 pointer-events-none select-none">
+                <h3 className="font-serif italic text-4xl sm:text-5xl text-white font-bold leading-none tracking-tight">
+                  {personalInfo.name}
+                </h3>
+                <p className="font-mono text-[9px] tracking-[0.25em] text-cream-200/40 uppercase mt-3">
+                  AI ENGINEER &nbsp;·&nbsp; EST. 2023
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right — Bio and stats */}
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
-            className="lg:col-span-3 space-y-8"
+            className="space-y-8"
           >
-            {/* Label */}
-            <motion.div variants={fadeUp}>
-              <span className="section-label">About</span>
-            </motion.div>
-
-            {/* Heading */}
-            <motion.h2 variants={fadeUp} className="section-heading text-slate-900 dark:text-white">
-              Building Intelligent{' '}
-              <br className="hidden sm:block" />
-              <span className="gradient-text">Systems</span>
-            </motion.h2>
-
-            {/* Bio */}
-            <motion.p variants={fadeUp} className="section-subtext leading-relaxed max-w-2xl">
-              {about.bio}
+            {/* Big quote heading */}
+            <motion.p variants={fadeUp} className="font-serif text-2xl sm:text-3xl text-charcoal dark:text-cream-100 leading-snug">
+              I architect <span className="italic text-copper">intelligent</span> systems
+              and ship the rest of the stack myself.
             </motion.p>
 
-            {/* Highlights */}
-            <motion.div variants={stagger} className="grid sm:grid-cols-2 gap-4">
-              {about.highlights.map((item, i) => {
-                const Icon = iconMap[item.icon] || HiSparkles
-                return (
-                  <motion.div
-                    key={i}
-                    variants={fadeUp}
-                    className="flex items-center gap-4 p-4 rounded-xl bg-white/50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06] hover:border-cyan-400/30 dark:hover:border-cyan-400/15 transition-all duration-300 group"
-                  >
-                    <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/10 to-violet-500/10 dark:from-cyan-400/10 dark:to-violet-400/10 flex items-center justify-center group-hover:from-cyan-500/20 group-hover:to-violet-500/20 transition-all duration-300">
-                      <Icon className="w-5 h-5 text-cyan-500 dark:text-cyan-400" />
-                    </div>
-                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                      {item.text}
-                    </span>
-                  </motion.div>
-                )
-              })}
-            </motion.div>
+            {/* Bio paragraph */}
+            <motion.p variants={fadeUp} className="text-base text-charcoal/70 dark:text-cream-200/60 leading-relaxed">
+              I'm <strong className="text-charcoal dark:text-cream-100 font-semibold">{personalInfo.name} {personalInfo.lastName}</strong>, {about.bio.split('. ').slice(0, 2).join('. ')}.
+            </motion.p>
+
+            <motion.p variants={fadeUp} className="text-base text-charcoal/70 dark:text-cream-200/60 leading-relaxed">
+              {about.bio.split('. ').slice(2).join('. ')}
+            </motion.p>
+
+            <motion.p variants={fadeUp} className="text-base text-charcoal/50 dark:text-cream-200/50 font-serif italic leading-relaxed">
+              I prefer software that does work over software that explains itself.
+            </motion.p>
 
             {/* Stats */}
-            <motion.div variants={stagger} className="grid grid-cols-3 gap-4 pt-4">
+            <motion.div
+              variants={fadeUp}
+              className="border-t border-border-cream dark:border-border-light pt-8 grid grid-cols-3 gap-6"
+            >
               {about.stats.map((stat, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeUp}
-                  className="text-center p-4 rounded-xl bg-white/50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06]"
-                >
-                  <div className="gradient-text text-xl sm:text-2xl font-bold font-heading">
+                <div key={i}>
+                  <p className="font-serif italic text-3xl sm:text-4xl text-copper mb-2">
                     {stat.value}
-                  </div>
-                  <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 font-medium">
+                  </p>
+                  <p className="font-mono text-xs tracking-[0.15em] uppercase text-charcoal/40 dark:text-cream-200/40">
                     {stat.label}
-                  </div>
-                </motion.div>
+                  </p>
+                </div>
               ))}
             </motion.div>
-          </motion.div>
-
-          {/* Right column — profile card (2 cols) */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            className="lg:col-span-2 relative"
-          >
-            {/* Decorative gradients behind card */}
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-cyan-400/15 to-violet-500/15 dark:from-cyan-400/10 dark:to-violet-500/10 blur-2xl opacity-60 rotate-2" />
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tl from-amber-400/10 to-cyan-400/10 dark:from-amber-400/5 dark:to-cyan-400/5 blur-2xl opacity-40 -rotate-3" />
-
-            {/* Card */}
-            <div className="relative glass-card p-8 sm:p-10 text-center">
-              {/* Top badges */}
-              <div className="flex items-center justify-between mb-8">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                  <span className="font-heading text-base font-bold text-white">VP</span>
-                </div>
-                <span className="px-3 py-1.5 rounded-lg bg-cyan-500/10 dark:bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 text-xs font-semibold font-heading tracking-wide">
-                  {personalInfo.title}
-                </span>
-              </div>
-
-              {/* Decorative monogram */}
-              <div className="relative mx-auto w-44 h-44 sm:w-52 sm:h-52 mb-8">
-                {/* Outer ring */}
-                <div className="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/20 dark:border-cyan-400/10 animate-spin-slow" />
-                {/* Inner gradient circle */}
-                <div className="absolute inset-4 rounded-full bg-gradient-to-br from-cyan-500/10 via-violet-500/10 to-amber-500/10 dark:from-cyan-400/[0.08] dark:via-violet-400/[0.08] dark:to-amber-400/[0.08]" />
-                {/* Monogram */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-heading text-6xl sm:text-7xl font-extrabold gradient-text select-none leading-none">
-                    VP
-                  </span>
-                </div>
-                {/* Orbiting dot */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50 animate-pulse-glow" />
-              </div>
-
-              {/* Name & info */}
-              <h3 className="font-heading text-xl font-bold text-slate-900 dark:text-white mb-1">
-                {personalInfo.name} {personalInfo.lastName}
-              </h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">
-                B.E. in AI &amp; ML
-              </p>
-              <p className="text-sm text-slate-400 dark:text-slate-500 mb-6">
-                L.D. College of Engineering
-              </p>
-
-              {/* Pulsing accent dots */}
-              <div className="flex items-center justify-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse-glow shadow-lg shadow-cyan-400/40" />
-                <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse-glow delay-200 shadow-lg shadow-violet-400/40" />
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse-glow delay-400 shadow-lg shadow-amber-400/40" />
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

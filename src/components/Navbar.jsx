@@ -4,12 +4,12 @@ import { HiSun, HiMoon, HiBars3, HiXMark } from 'react-icons/hi2'
 import { personalInfo } from '../data/portfolio'
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'about', href: '#about' },
+  { label: 'skills', href: '#skills' },
+  { label: 'projects', href: '#projects' },
+  { label: 'experience', href: '#experience' },
+  { label: 'education', href: '#education' },
+  { label: 'contact', href: '#contact' },
 ]
 
 export default function Navbar() {
@@ -24,12 +24,17 @@ export default function Navbar() {
     return true
   })
 
-  // Scroll listener
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Since all sections match the page theme, we are over dark when dark mode is enabled
+  const overDark = dark
 
   // Dark mode toggle
   useEffect(() => {
@@ -48,6 +53,13 @@ export default function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
+  const textColor = overDark
+    ? 'text-cream-200/60 hover:text-cream-100'
+    : 'text-charcoal/50 hover:text-charcoal'
+
+  const brandColor = overDark ? 'text-cream-100' : 'text-charcoal'
+  const dotColor = overDark ? 'text-copper-light' : 'text-copper'
+
   return (
     <>
       <motion.nav
@@ -56,31 +68,30 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-white/70 dark:bg-dark-900/70 backdrop-blur-xl border-b border-slate-200/60 dark:border-white/[0.06] shadow-sm shadow-slate-900/5 dark:shadow-black/20'
+            ? overDark
+              ? 'bg-charcoal/80 backdrop-blur-xl border-b border-border-dark/60'
+              : 'bg-cream-100/80 backdrop-blur-xl border-b border-border-cream/60'
             : 'bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 sm:px-12 lg:px-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
-            <a
-              href="#hero"
-              className="relative group flex items-center"
-            >
-              <span className="font-heading text-2xl font-extrabold text-slate-900 dark:text-white tracking-tighter select-none">
-                VP
-              </span>
-              <span className="font-heading text-2xl font-extrabold text-cyan-400 tracking-tighter select-none group-hover:scale-125 transition-transform duration-300 origin-bottom">
-                .
+            <a href="#hero" className="relative group flex items-center gap-0.5">
+              <span className={`font-serif text-xl font-bold tracking-tight select-none transition-colors duration-300 ${brandColor}`}>
+                {personalInfo.name} {personalInfo.lastName}
               </span>
             </a>
 
             {/* Desktop nav */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
-                <a key={link.href} href={link.href} className="nav-link px-3 py-2">
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-mono tracking-wide transition-colors duration-300 ${textColor}`}
+                >
                   {link.label}
-                  <span className="nav-link-underline" />
                 </a>
               ))}
             </div>
@@ -90,7 +101,11 @@ export default function Navbar() {
               {/* Theme toggle */}
               <button
                 onClick={() => setDark((d) => !d)}
-                className="relative p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/[0.08] hover:border-cyan-400/40 dark:hover:border-cyan-400/20 transition-all duration-300 group"
+                className={`relative p-2.5 rounded-full border transition-all duration-300 ${
+                  overDark
+                    ? 'border-border-light hover:border-copper/40 bg-charcoal-50/50'
+                    : 'border-border-cream hover:border-copper/40 bg-cream-50/50'
+                }`}
                 aria-label="Toggle dark mode"
               >
                 <AnimatePresence mode="wait" initial={false}>
@@ -103,7 +118,7 @@ export default function Navbar() {
                       transition={{ duration: 0.25 }}
                       className="block"
                     >
-                      <HiSun className="w-4 h-4 text-amber-400" />
+                      <HiSun className={`w-4 h-4 ${dotColor}`} />
                     </motion.span>
                   ) : (
                     <motion.span
@@ -114,7 +129,7 @@ export default function Navbar() {
                       transition={{ duration: 0.25 }}
                       className="block"
                     >
-                      <HiMoon className="w-4 h-4 text-violet-400" />
+                      <HiMoon className="w-4 h-4 text-charcoal/60" />
                     </motion.span>
                   )}
                 </AnimatePresence>
@@ -123,21 +138,29 @@ export default function Navbar() {
               {/* CTA button — desktop */}
               <a
                 href="#contact"
-                className="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 to-violet-500 hover:from-cyan-400 hover:to-violet-400 shadow-lg shadow-cyan-500/20 dark:shadow-cyan-500/10 hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-0.5"
+                className={`hidden lg:inline-flex items-center px-5 py-2 rounded-full text-sm font-mono tracking-wide border transition-all duration-300 hover:-translate-y-0.5 ${
+                  overDark
+                    ? 'border-cream-200/30 text-cream-100 hover:border-copper hover:text-copper-light'
+                    : 'border-charcoal/20 text-charcoal hover:border-copper hover:text-copper'
+                }`}
               >
-                Get in Touch
+                Get in touch
               </a>
 
               {/* Hamburger */}
               <button
                 onClick={() => setMobileOpen((o) => !o)}
-                className="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-white/[0.06] border border-slate-200 dark:border-white/[0.08] transition-all duration-300"
+                className={`lg:hidden p-2.5 rounded-full border transition-all duration-300 ${
+                  overDark
+                    ? 'border-border-light bg-charcoal-50/50'
+                    : 'border-border-cream bg-cream-50/50'
+                }`}
                 aria-label="Toggle mobile menu"
               >
                 {mobileOpen ? (
-                  <HiXMark className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  <HiXMark className={`w-5 h-5 ${overDark ? 'text-cream-200' : 'text-charcoal'}`} />
                 ) : (
-                  <HiBars3 className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  <HiBars3 className={`w-5 h-5 ${overDark ? 'text-cream-200' : 'text-charcoal'}`} />
                 )}
               </button>
             </div>
@@ -153,7 +176,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-slate-50/95 dark:bg-dark-900/95 backdrop-blur-2xl lg:hidden"
+            className="fixed inset-0 z-40 bg-cream-100/98 dark:bg-charcoal/98 lg:hidden transition-colors duration-300"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -170,7 +193,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.06 }}
-                  className="text-2xl font-heading font-semibold text-slate-700 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors py-3 px-6"
+                  className="text-3xl font-serif font-semibold text-charcoal/70 dark:text-cream-200/70 hover:text-copper dark:hover:text-copper transition-colors py-3 px-6"
                 >
                   {link.label}
                 </motion.a>
@@ -181,9 +204,9 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 + navLinks.length * 0.06 }}
-                className="mt-6 inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-cyan-500 to-violet-500 shadow-lg shadow-cyan-500/20"
+                className="mt-6 inline-flex items-center px-8 py-3.5 rounded-full text-base font-mono text-charcoal dark:text-cream border border-charcoal/20 dark:border-cream-200/20 hover:border-copper hover:text-copper transition-all duration-300"
               >
-                Get in Touch
+                Get in touch
               </motion.a>
             </motion.div>
           </motion.div>

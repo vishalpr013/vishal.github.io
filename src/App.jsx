@@ -8,11 +8,13 @@ import Education from './components/Education'
 import Achievements from './components/Achievements'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import SectionDots from './components/SectionDots'
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden bg-slate-50 dark:bg-dark-900 text-slate-900 dark:text-slate-100 font-body transition-colors duration-300">
+    <div className="flex flex-col min-h-screen overflow-hidden font-body transition-colors duration-300">
       <Navbar />
+      <SectionDots />
       <main className="flex-grow w-full overflow-hidden">
         <Hero />
         <About />
