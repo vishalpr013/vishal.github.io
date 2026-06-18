@@ -77,7 +77,12 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
-            <a href="#hero" className="relative group flex items-center gap-0.5">
+            <a href="#hero" className="relative group flex items-center gap-3">
+              <img
+                src="/Symbol.jpg"
+                alt="Logo Symbol"
+                className="w-8 h-8 rounded-full object-cover border border-border-cream dark:border-border-light transition-transform duration-300 group-hover:scale-105"
+              />
               <span className={`font-serif text-xl font-bold tracking-tight select-none transition-colors duration-300 ${brandColor}`}>
                 {personalInfo.name} {personalInfo.lastName}
               </span>
