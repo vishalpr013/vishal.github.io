@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiSun, HiMoon, HiBars3, HiXMark } from 'react-icons/hi2'
+import { HiSun, HiMoon } from 'react-icons/hi2'
 import { personalInfo } from '../data/portfolio'
 
 const navLinks = [
@@ -14,7 +14,6 @@ const navLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
   const [dark, setDark] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme')
@@ -47,11 +46,6 @@ export default function Navbar() {
     }
   }, [dark])
 
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [mobileOpen])
 
   const textColor = overDark
     ? 'text-cream-200/60 hover:text-cream-100'
@@ -151,72 +145,10 @@ export default function Navbar() {
               >
                 Get in touch
               </a>
-
-              {/* Hamburger */}
-              <button
-                onClick={() => setMobileOpen((o) => !o)}
-                className={`lg:hidden p-2.5 rounded-full border transition-all duration-300 ${
-                  overDark
-                    ? 'border-border-light bg-charcoal-50/50'
-                    : 'border-border-cream bg-cream-50/50'
-                }`}
-                aria-label="Toggle mobile menu"
-              >
-                {mobileOpen ? (
-                  <HiXMark className={`w-5 h-5 ${overDark ? 'text-cream-200' : 'text-charcoal'}`} />
-                ) : (
-                  <HiBars3 className={`w-5 h-5 ${overDark ? 'text-cream-200' : 'text-charcoal'}`} />
-                )}
-              </button>
             </div>
           </div>
         </div>
       </motion.nav>
-
-      {/* Mobile menu overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-cream-100/98 dark:bg-charcoal/98 lg:hidden transition-colors duration-300"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.35, delay: 0.1 }}
-              className="flex flex-col items-center justify-center h-full gap-2"
-            >
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 + i * 0.06 }}
-                  className="text-3xl font-serif font-semibold text-charcoal/70 dark:text-cream-200/70 hover:text-copper dark:hover:text-copper transition-colors py-3 px-6"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
-              <motion.a
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 + navLinks.length * 0.06 }}
-                className="mt-6 inline-flex items-center px-8 py-3.5 rounded-full text-base font-mono text-charcoal dark:text-cream border border-charcoal/20 dark:border-cream-200/20 hover:border-copper hover:text-copper transition-all duration-300"
-              >
-                Get in touch
-              </motion.a>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   )
 }
