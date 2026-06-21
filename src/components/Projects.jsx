@@ -117,20 +117,36 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  {/* GitHub link */}
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 font-mono text-sm text-charcoal/60 dark:text-cream-200/60 hover:text-copper transition-colors duration-300 group/link"
-                    >
-                      <SiGithub className="w-4 h-4" />
-                      <span className="underline underline-offset-4 decoration-border-cream dark:decoration-border-light group-hover/link:decoration-copper transition-colors">
-                        GitHub
-                      </span>
-                    </a>
-                  )}
+                  {/* Project links */}
+                  <div className="flex flex-wrap gap-6 items-center">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 font-mono text-sm text-charcoal/60 dark:text-cream-200/60 hover:text-copper transition-colors duration-300 group/link"
+                      >
+                        <SiGithub className="w-4 h-4" />
+                        <span className="underline underline-offset-4 decoration-border-cream dark:decoration-border-light group-hover/link:decoration-copper transition-colors">
+                          GitHub
+                        </span>
+                      </a>
+                    )}
+
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 font-mono text-sm text-charcoal/60 dark:text-cream-200/60 hover:text-copper transition-colors duration-300 group/link"
+                      >
+                        <HiArrowTopRightOnSquare className="w-4.5 h-4.5" />
+                        <span className="underline underline-offset-4 decoration-border-cream dark:decoration-border-light group-hover/link:decoration-copper transition-colors">
+                          Live Demo
+                        </span>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
 

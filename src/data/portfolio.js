@@ -75,7 +75,7 @@ export const projects = [
       'Grounded QA via Llama-3.1 through Groq API — reduced hallucinations vs single-method baselines',
     ],
     github: 'https://github.com/vishalpr013/Hybrid-RAG-System',
-    live: null,
+    live: 'https://vishalpr013.github.io/Hybrid-RAG-System/',
   },
   {
     title: 'Jira-AI',
